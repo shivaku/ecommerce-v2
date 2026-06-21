@@ -33,7 +33,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponse addProduct(@Valid @RequestBody ProductRequest productReq) {
+    public ProductResponse addProduct(@Valid @RequestBody ProductRequest productReq) throws Throwable {
         return productService.addProduct(productReq);
     }
   

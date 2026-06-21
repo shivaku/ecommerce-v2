@@ -3,6 +3,8 @@ package com.shiva.ecommerce_v2.product.service;
 
 import java.util.List;
 
+import com.shiva.ecommerce_v2.category.Category;
+import com.shiva.ecommerce_v2.category.repository.CategoryRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     public ProductPageResponse getAllProducts(
       int page,
@@ -58,18 +61,21 @@ public class ProductService {
             product.getPrice(),
             product.getBrand(),
             product.getDescription(),          
-            product.getCategory()
+            product.getCategory().getName()
         );
     }
 
     public ProductResponse addProduct(ProductRequest productReq) {
+        Long categoryId = productReq.getCategoryId();
+
+        Category category = categoryRepository.getReferenceById(categoryId);
         Product product = new Product();
 
         product.setName(productReq.getName());
         product.setPrice(productReq.getPrice());
         product.setBrand(productReq.getBrand());
         product.setDescription(productReq.getDescription());
-        product.setCategory(productReq.getCategory());
+        product.setCategory(category);
 
         Product savedProduct = productRepository.save(product);
 
@@ -86,18 +92,22 @@ public class ProductService {
                 product.getPrice(),
                 product.getBrand(),
                 product.getDescription(),
-                product.getCategory()
+                product.getCategory().getName()
             );
         }
 
         public Product toEntity(ProductRequest request) {
+            Category category = categoryRepository
+                    .findById(request.getCategoryId())
+                    .orElseThrow(() -> new RuntimeException("Category not found"));
+
             Product product = new Product();
 
             product.setName(request.getName());
             product.setPrice(request.getPrice());
             product.setBrand(request.getBrand());
             product.setDescription(request.getDescription());
-            product.setCategory(request.getCategory());
+            product.setCategory(category);
 
             return product;
         }

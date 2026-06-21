@@ -1,7 +1,9 @@
 package com.shiva.ecommerce_v2.product.dto;
 
 import java.math.BigDecimal;
+
 import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +26,6 @@ public class ProductRequest {
     @NotBlank(message = "Description required")
     private String description;
 
-    @NotBlank(message = "Category should not null")
-    private String category;
+    @NotNull(message = "Category is required")
+    private Long categoryId;
 }

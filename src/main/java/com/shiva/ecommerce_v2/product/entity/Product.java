@@ -1,5 +1,6 @@
 package com.shiva.ecommerce_v2.product.entity;
 
+import com.shiva.ecommerce_v2.category.Category;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
@@ -24,8 +25,9 @@ public class Product {
     @Column(nullable = false, length = 250)
     private  String brand;
 
-    @Column(nullable = false, length = 250)
-    private  String category;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Column(nullable = false, length = 500)
     private  String description;

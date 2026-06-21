@@ -3,7 +3,7 @@ package com.shiva.ecommerce_v2.auth.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.shiva.ecommerce_v2.JwtService.JwtService;
+import com.shiva.ecommerce_v2.security.JwtService;
 import com.shiva.ecommerce_v2.auth.dto.LoginRequest;
 import com.shiva.ecommerce_v2.auth.dto.LoginResponse;
 import com.shiva.ecommerce_v2.auth.dto.UserAuthResponse;
